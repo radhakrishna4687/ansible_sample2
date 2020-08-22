@@ -1,0 +1,35 @@
+---
+ - hosts: webservers 
+   gather_facts: yes 
+   tasks: 
+   - name: Create a tomcat user 
+     user: 
+       name: tomcat 
+       comment: 'TOMCAT USER'
+       state: present 
+       ssh_key_file: /krishna/.ssh/id_rsa
+       generate_ssh_key: yes 
+   - name: Create a Tomact group 
+     group: 
+       name: tomact 
+       state: present 
+   - name: Install java on Ubuntu servers 
+     apt: 
+       name: default-jre
+       state: present 
+   - name: check java is installe or not 
+     shell: java -version && which java 
+#   - name: Append the java path to file 
+ #    shell: vim ~/.bashrc 
+  #   shell: which java 
+  #   shell: export JAVA_HOME=/usr/lib/{{}}   
+   - name: Install tomcat on ubuntu servers
+     get_url: 
+       url: https://downloads.apache.org/tomcat/tomcat-8/v8.5.57/bin/apache-tomcat-8.5.57.tar.gz
+       dest: /krishna/
+   - name: extract the tomact tar.gz file 
+     shell: tar xvzf apache-tomcat-8.5.32.tar.gz    
+
+        
+         
+ 

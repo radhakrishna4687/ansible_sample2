@@ -1,0 +1,8 @@
+---
+ - hosts: webservers 
+   gather_facts: yes 
+   tasks:
+   - name: Install the jenkins war file into tomcat webapps 
+     get_url:
+       url: http://mirror.serverion.com/jenkins/war-stable/2.235.2/jenkins.war
+       dest: /home/tomcat/apache-tomcat-8.5.57/webapps

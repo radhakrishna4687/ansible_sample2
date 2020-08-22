@@ -1,0 +1,33 @@
+---
+ - hosts: nodes
+   gather_facts: yes 
+   tasks: 
+   - name: INstalling apache2 
+     apt: 
+       name: apache2
+       state: present
+       update_cache: yes
+     notify:
+       - start apache
+
+   - copy:  
+       src: /krishna/hosts 
+       dest: /krishna/hostscopied 
+   - name: Installing nginx servers 
+     apt: 
+       name: nginx 
+       state: present 
+      # update_cache: yes 
+     notify:
+       - start nginx
+   handlers:
+     - name: start apache 
+       service: 
+         name: apache2 
+         state: started
+        # listen: "restart web" 
+     - name: start nginx 
+       service: 
+         name: nginx 
+         state: started 
+        # listen: "restart web"

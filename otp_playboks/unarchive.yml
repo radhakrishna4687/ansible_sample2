@@ -1,0 +1,46 @@
+---
+ - hosts: 172.17.0.4 
+   become: yes 
+   tasks:
+   tasks: 
+   - name: remove the lock
+     shell: rm -f /var/lib/dpkg/lock-frontend
+   - name: Install composer 
+     apt:
+       name: composer
+       state: present  
+    #   php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"php -r "if (hash_file('sha384', 'composer-setup.php') === 'e5325b19b381bfd88ce90a5ddb7823406b2a38cff6bb704b0acc289a09c8128d4a8ce2bbafcd1fcbdc38666422fe2806') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"php composer-setup.phpphp -r "unlink('composer-setup.php');"
+#     args:
+ #      chdir: /var/www/html
+   - debug: 
+       msg: "Install composser sucessfull"
+    
+   - name: Installing magento2.4 
+     get_url: 
+         url: https://github.com/magento/magento2/archive/2.4-develop.zip 
+         dest: /krishna/rk/  
+   - debug: 
+       msg: "Install Magento 2.4 sucessfully"
+ #  - name: stat 
+  #   stat: 
+   #    path: /var/www/html/
+    #   register: avilable_stat.stat.exists    
+    
+   - name: rename the pkg 
+     command: mv 2.4-develop.zip magento2.4.zip 
+   #  when: avilable_stat.stst.exists  
+     ignore_errors: yes
+  # - name: rename the pkg 
+  #   command: mv 2.4-develop.zip magento2.4.zip  
+   #  ignore_errors: yes 
+   - debug: 
+       msg: "Rename into  Magento 2.4 sucessfully"      
+   - name: install unzip pkg
+     apt: 
+       name: unzip
+       state: present
+   - name: Extract the magento2.4 file in the /var/www/html 
+     unarchive:
+       src: /krishna/rk/magento2-2.4-develop.zip
+       dest: /var/
+       remote_src: yes        

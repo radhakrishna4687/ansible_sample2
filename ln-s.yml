@@ -1,0 +1,7 @@
+---
+ - hosts: nodes 
+   become: yes 
+   tasks:
+   - name: Creating soft link to the 
+     shell: ln -s /home/hari.conf /home/
+    

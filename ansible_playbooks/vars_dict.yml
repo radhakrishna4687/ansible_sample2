@@ -1,0 +1,16 @@
+---
+ - hosts: all 
+   gather_facts: true 
+   become: yes 
+   vars:
+     devops: 
+       - krishna:
+           city: kadapa 
+           address: 5/75-3a 
+       - radha: 
+           city: nandalur
+           address: 23/76-23w
+   tasks: 
+   - name: Devops course details 
+     debug: 
+        msg: "{{devops}}" 

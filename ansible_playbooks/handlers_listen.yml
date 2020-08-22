@@ -1,0 +1,32 @@
+---
+ - hosts: nodes
+   gather_facts: yes
+   tasks:
+   - name: Install apaache servers
+     apt:
+       name: apache2
+       state: present
+   #    force_apt_get: yes 
+     #  update_cache: yes
+       notify: "restart web server"
+   - copy:
+       src: /krishna/hosts
+       dest: /krishna/hostscopied
+       notify: "restart web server"
+   - name: Install nginx servers 
+     apt:
+       name: nginx 
+       state: present 
+     #  update_cache: yes 
+       notify: "restart web server"    
+   handlers:
+   - name: restart apache2
+     service:
+       name: apache2
+       state: restarted
+       listen: "restart web server"
+   - name: restart nginx
+     service: 
+       name: nginx
+       state: restart
+       listen: "restart web serve"

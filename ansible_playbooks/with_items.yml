@@ -1,0 +1,9 @@
+---
+ - hosts: all 
+   become: yes 
+   tasks: 
+   - name: install utillites 
+     apt: 
+       name: "{{ item }}"
+       state: present
+     with_items: ['git','nano','wget','tree']    

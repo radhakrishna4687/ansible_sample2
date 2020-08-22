@@ -1,0 +1,12 @@
+---
+ - hosts: all 
+   become: yes 
+   tasks: 
+   - name: First template task 
+     template:
+       src: first.j2 
+       dest: /krishna/rk/first.j2
+   - name: Second template task 
+     template:
+       src: second.j2 
+       dest: /krishna/rk/second.j2

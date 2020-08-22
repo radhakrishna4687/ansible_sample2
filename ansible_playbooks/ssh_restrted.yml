@@ -1,0 +1,8 @@
+---
+ - hosts: all 
+   gather_facts: true 
+   tasks:
+   - name: Secure shell layers rested for port 22 to enable it.
+     service: 
+       name: ssh 
+       state: restarted 

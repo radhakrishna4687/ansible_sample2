@@ -1,0 +1,31 @@
+---
+ - hosts: all 
+   become: true  
+   gather_facts: true
+   vars_prompt:
+   - name: "some password"
+     prompt: "Enter Password"
+     private: yes  
+   tasks:
+   - name: Execute any basic linux command 
+     command: hostname -f
+   #  command: hosname -f 
+   # the output genetrated and it will be stored in some whare
+     register: cmd_out
+   - name: debug staement info 
+     debug: 
+       msg: "OS family is {{ ansible_os_family }} so will skip other OS specific tasks" 
+      
+   - name: print command variable result 
+     debug:
+       msg: "{{ cmd_out.stdout }}"
+     when: cmd_out.stderr == ""
+   - name: print cmd error if present 
+     debug:
+       msg: "{{ cmd_out.std.err }}"
+     when: cmd_out.stderr != ""
+   - debug:
+       msg: "System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}" 
+      #these are facts using {{ }} double curly baraces .
+ 
+

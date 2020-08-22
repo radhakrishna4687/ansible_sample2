@@ -1,0 +1,25 @@
+--- 
+ - hosts: nodes  
+   gather_facts: yes 
+   tasks:
+   - apt:
+       name: apache2
+       state: present 
+       update_cache: yes 
+       notify:
+       - restart apache2 
+   - copy:
+       src: /krishna/hosts
+       dest: /krishna/hostscopied 
+       notify: "restart web server"
+   handlers:
+   - name: restart apache2
+     service:
+       name: apache2 
+       state: restarted    
+       listen: "restart web server"
+  - name: restart nginx 
+    service: nginx 
+      name: nginx 
+      state: restart
+      listen: "restart web serve"

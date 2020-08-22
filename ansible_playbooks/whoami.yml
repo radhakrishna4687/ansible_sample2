@@ -1,0 +1,12 @@
+---
+  - hosts: all 
+    gather_facts: yes 
+    tasks:
+    - name: find who is execiting 
+      shell: 'ifconfig && whoami'
+    - name: Find out current dir 
+      shell: 'pwd' 
+    - name: Installing tree 
+      apt:
+        name: tree 
+        state: latest     

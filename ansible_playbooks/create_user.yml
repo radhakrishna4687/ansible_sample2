@@ -1,0 +1,33 @@
+---
+ - hosts: nodes 
+   gather_facts: true 
+   become: yes
+   vars:
+     name: Creating users and list out the users create are sucessfully completed......!!!! 
+   tasks: 
+     - name: Create the new users 
+       user:
+         name: "{{ item }}"
+         state: present 
+       loop:
+         - radha
+         - padma
+         - venkat    
+   tasks:
+     - name: Create the users_lits text file and append the users list to text file  
+       file: path=/etc/users_list.txt state=touch 
+    # - name: file mode 
+     #  file: path:/etc/users_lits.txt mode=0644 
+   tasks:
+     - name: List out all users in etc/passwd  
+       shell: cat passwd >> users_list.txt
+      # command: cat users_list.txt
+#   tasks:
+ #    - name: Copy the users_list.txt file 
+  #     copy:
+      #   src: /etc/users_list.txt
+     #   dest: /krishna/rk/users_list.txt 
+    #     remote_src: yes  
+   #      follow: yes 
+     - debug: msg="{{ name }}"
+

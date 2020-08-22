@@ -1,0 +1,13 @@
+---
+ - hosts: all 
+   gather_facts: yes 
+   tasks: 
+   - name: copy modules 
+     copy:
+       src: /etc/ansible/hosts
+       dest: /krishna/hosts 
+       owner: root 
+       mode: '0644'
+       backup: yes 
+   - name: host file type checking permissions 
+     shell: ls -al && pwd

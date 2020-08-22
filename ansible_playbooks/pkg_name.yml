@@ -1,0 +1,4 @@
+---
+pkg: nginx 
+installinfo: present 
+destcopy: /krishna/rk 

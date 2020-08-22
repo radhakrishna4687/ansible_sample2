@@ -1,0 +1,15 @@
+---
+ - hosts: nodes 
+   gather_facts: true 
+   vars: 
+     name: redis install sucessfully 
+   tasks: 
+   - include_vars: pkg_name.yml
+   - debug: msg='package name is}"
+   tasks: 
+     - apt:
+         name: 
+           - "{{pkg}}"
+         state: present 
+     - debug: 
+         msg: installatiion and configutaion sucessfuly of "{{ name }}"    

@@ -1,0 +1,16 @@
+---  
+ - hosts: all 
+   become: yes 
+   gather_facts: true 
+   tasks: 
+   - name: Basic Template with no dynamic contenet 
+     template:
+       src: basic.j2 
+       dest: /krishna/rk/basic.j2
+   - name: Ansible check file exist or not 
+     stat:
+       path: /krishna/rk/basic.j2 
+     register: file_details 
+   - debug:
+       msg: "The file or directory exists" 
+     when: file_details.stat.exists        

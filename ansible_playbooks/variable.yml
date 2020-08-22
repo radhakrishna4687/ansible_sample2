@@ -1,0 +1,8 @@
+---
+ - hosts: all 
+   vars:
+     salutation: Hello krishna, how about your ansible tutorials ..!
+   tasks:
+   - name: Ansible Varaibale Basic usages 
+     debug:
+       msg: "{{salutation}}"  

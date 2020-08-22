@@ -1,0 +1,21 @@
+--- 
+ - hosts: webservers 
+   become: yes 
+   tasks:
+   - apt:
+       name: nginx 
+       state: present 
+       update_cache: yes 
+     notify:  
+       - start nginx
+    # ignore_errors: yes
+   - name: Copy the file 
+     copy: src=/etc/ansible/ansible_playbooks/second.j2 dest=/home/second.j2
+     notify: 
+       - start nginx 
+     ignore_errors: yes
+   handlers:
+   - name: start nginx
+     service: 
+       name: nginx 
+       state: started     

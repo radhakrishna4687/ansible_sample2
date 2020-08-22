@@ -1,0 +1,99 @@
+---
+ - hosts: 172.17.0.3
+   gather_facts: true 
+   become: yes 
+   tasks:
+   - name: Installs nginx web server
+     apt: 
+       name: nginx 
+       state: latest 
+       update_cache: true
+   #  notify:
+     #  - restart nginx
+   - debug: 
+       msg: "Successfully install nginx server"    
+   
+   - name: Nginx servers configurations steps to create a file
+     file:
+       path: /etc/nginx/sites-available/otp-demo1.conf 
+       state: touch
+   - debug: 
+       msg: "Successfully careted the otp-demo1.conf file"
+
+   - name: Creating soft link to the
+     shell: ln -s /etc/nginx/sites-available/otp-demo1.conf /etc/nginx/sites-enabled/
+     ignore_errors: yes    
+# register: service_list
+    # args:
+      # warn: false 
+#  - name: Creat symlink
+  #   file:
+   #    src: /etc/nginx/sites-available/otp-demo1.conf
+     #  dest: /etc/nginx/sites-enabled/
+      # state: link 
+   - debug: 
+       msg: "Successfully created the symlink  for /etc/nginx/sites-available/otp-demo1.conf  to  /etc/nginx/sites-enabled/ " 
+
+   - name: ADD the code into otp-demo1.conf file
+     blockinfile: 
+       path: /etc/nginx/sites-available/otp-demo1.conf
+       backup: yes  
+       block: | 
+         service{
+           listen 86;
+           server_name 172.17.0.3;
+           set $MAGE_ROOT /var/www/html/otp/otp-poc-1;
+           set $MAGE_MODE developer; 
+           set $MAGE_RUN_TYPE store;
+           include /var/www/html/otp/otp-poc-1/nginx.conf.sample;
+          }
+         
+   - debug: 
+       msg: " Sucessfully add code into otp-demo.conf file "  
+   - name: Creating a conf.d file in etc/nginx/conf.d/php-fpm.conf
+     file:
+       path: /etc/nginx/conf.d/php-fpm.conf
+       state: touch
+   - debug: 
+       msg: "Successfully created php-fpm.conf file"
+       
+   - name: ADD the code into php-fpm.conf  file
+     blockinfile: 
+       path: /etc/nginx/conf.d/php-fpm.conf
+       backup: yes 
+       block: | 
+         # PHP-FPM FastCGI server 
+         # network or unix domain socket configuration
+         upstream fastcgi_backend { 
+             server unix:/run/php/php-fpm.sock; 
+             }
+     #notify:
+      # - restart nginx 
+   - debug: 
+       msg: " Sucessfully add code into php-fpm.conf file "     
+   #  notify:
+   #    - restart nginx 
+   - name: Restarted the nginx servers
+     service: 
+       name: nginx 
+       state: started
+   #  become: true 
+   #  become_method: sudo 
+
+     # command: service nginx restart
+ #    arg:
+   #    warn: False
+#     ignore_errors: yes
+ #  - handlers:
+  #     - name: restart nginx
+    #     service: 
+   #        name: nginx 
+     #      state: restarted
+      #     enable: yes 
+  # - debug:
+  #     msg: "Restarted nginx servers"
+ 
+#   tasks:
+ #  - name: Install php7,4 version 
+     
+

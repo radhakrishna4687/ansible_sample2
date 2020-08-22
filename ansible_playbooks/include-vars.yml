@@ -1,0 +1,6 @@
+---
+ - name: print greetings 
+   hosts: "*"
+   tasks:
+     - include_vars: name_vars.yml 
+     - debug: msg="hello {{ name }}"

@@ -1,0 +1,23 @@
+---
+ - hosts: all 
+   gather_facts: true 
+   become: yes 
+   vars: 
+     devops:
+       - Python
+       - aws
+       - kubbernets 
+       - linux
+       - shell scripting 
+       - azure 
+       - docker 
+       - ansible 
+       - github
+       - maven 
+       - nexus 
+       - selenium 
+       - java 
+   tasks: 
+   - name:
+     debug: 
+       msg: "{{devops[2]}}"

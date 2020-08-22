@@ -1,0 +1,12 @@
+---
+ - hosts: webservers 
+   gather_facts: yes 
+   tasks: 
+   - name: extract the tomact tar.gz file 
+     shell: cd /krishna && tar xvzf apache-tomcat-8.5.32.tar.gz    
+   - name: Restarted the TOMCAt server 
+     service:
+       name: apache-tomcat-8.5.57
+       state: restarted  
+        
+

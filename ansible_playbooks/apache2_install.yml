@@ -1,0 +1,13 @@
+---
+ - hosts: webservers 
+   gather_facts: yes 
+   tasks:
+   - name: Installing a[ache servers 
+     yum: 
+       name: apache2 
+       state: latest
+   - name: Ensure Apache servers is running 
+     service:
+       name: apache2
+       state: started 
+       enabled: yes     
